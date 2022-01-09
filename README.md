@@ -17,6 +17,8 @@ Let's get started.
 - Maven (Java project build and management tool; I used ver. 3.6.3)
 - Marshalsec (Java Unmarshaller for JNDI Redirecting: https://github.com/mbechler/marshalsec)
 - Apache Tomcat 8 (I used version 8.0.32: https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.32/bin/)
+- Python3 Installed (should come installed on most Linux distros)
+- A malicious Java class file (this will be our RCE)
 - Finally, clone this repo!
 
 # Process Flow
@@ -60,3 +62,18 @@ curl -vv http://localhost:8080/
 
 If you see a welcome page on your browser or terminal, then it should be working. Now we can deploy our Vulnerable App.
 
+Copy your .war file to Tomcat's /webapps directory. Tomcat will hotdeploy your application in a matter of seconds.
+
+```bash
+cp /vuln4jpi/target/vuln4japi.war /opt/apache-tomcat-8.0.32/webapps
+```
+
+Test your vulnerable app by navigating to the app URL or again using cURL from the command line.
+On Browser: http://localhost:8080/vuln4japi/api
+
+```bash
+curl -vv http://localhost:8080/vuln4japi/api
+```
+You should see the following message displayed, ```Hi, this is a Vulnerable App!!```
+
+Now that we have some components working, let's exploit this thing...
