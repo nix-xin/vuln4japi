@@ -27,4 +27,36 @@ Once you have Java JDK and Maven installed, assuming you're on a Linux distro, c
 cd /path/to/vuln4japp
 mvn clean package -DskipTests 
 ```
-If you dont see any build errors, you should have a newly created target directory with your vuln4japp.war file. Ok, we'll come bcak to this file. Let's look at Tomcat briefly.
+If you dont see any build errors, you should have a newly created target directory with your vuln4japp.war file. Ok, we'll come back to this file a little later. Let's look at Tomcat briefly.
+
+Depending on your version of Java 8, later versions of 8 may have this particular setting (com.sun.jndi.ldap.object.trustURLCodebase) set to false. This effectively disallows JNDI from loading a remote codebase via LDAP. Which is what this vulnerability is exploiting. So, we need to modify Tomcat's catalina.properties file to set this system setting to True, making Tomcat intentionally vulnerable.
+
+Once you download apache-tomcat-8.0.32.tar.gz for Linux, untar it somewhere like the /opt directory.
+
+```bash
+tar -xvf apache-tomcat-8.0.32.tar.gz -C /opt
+```
+Change directory to /conf and modify catalina.properties at the bottom of the file. Note: Use your prefered text editor. I use vim in this example.
+
+```bash
+cd /opt/apache-tomcat-8.0.32/conf
+
+vim catalina.properties
+com.sun.jndi.ldap.object.trustURLCodebase=true
+com.sun.jndi.rmi.object.trustURLCodebase=true
+com.sun.jndi.cosnaming.object.trustURLCodebase=true
+``` 
+Exit your text editor and start Tomcat using the catalina.sh script inside the /bin directory.
+
+```bash
+cd /opt/apache-tomcat-8.0.32/bin
+./catalina.sh start
+```
+Test your instance of Apache Tomcat by navigating to http://localhost:8080/ or a simple cURL command from the command line interface.
+
+```bash
+curl -vv http://localhost:8080/
+```
+
+If you see a welcome page on your browser or terminal, then it should be working. Now we can deploy our Vulnerable App.
+
