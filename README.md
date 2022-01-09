@@ -38,7 +38,8 @@ Once you download apache-tomcat-8.0.32.tar.gz for Linux, untar it somewhere like
 ```bash
 tar -xvf apache-tomcat-8.0.32.tar.gz -C /opt
 ```
-Change directory to /conf and modify catalina.properties at the bottom of the file. Note: Use your prefered text editor. I use vim in this example.
+Change directory to /conf and modify catalina.properties at the bottom of the file. 
+>Note: Use your prefered text editor. I use vim in this example.
 
 ```bash
 cd /opt/apache-tomcat-8.0.32/conf
@@ -69,7 +70,7 @@ cp /vuln4jpi/target/vuln4japi.war /opt/apache-tomcat-8.0.32/webapps
 ```
 
 Test your vulnerable app by navigating to the app URL or again using cURL from the command line.
-On Browser: http://localhost:8080/vuln4japi/api
+On the browser: http://localhost:8080/vuln4japi/api
 
 ```bash
 curl -vv http://localhost:8080/vuln4japi/api
