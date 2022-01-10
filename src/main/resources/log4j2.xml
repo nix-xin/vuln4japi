@@ -6,8 +6,8 @@
 
 	<Appenders>
 		<RollingFile name="fileLogger"
-			fileName="${basePath}/vulnrestapi_log4j.log"
-			filePattern="${basePath}/vulnrestapi_log4j-%d{yyyy-MM-dd}.log">
+			fileName="${basePath}/vuln4japi_log4j.log"
+			filePattern="${basePath}/vuln4japi_log4j-%d{yyyy-MM-dd}.log">
 			<PatternLayout>
 				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
 				</pattern>
